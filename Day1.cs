@@ -24,6 +24,7 @@ namespace AdventOfCode
             string inputFilePath = importFilePathTextBox.Text;
             string outputFilePath = exportFilePathTextBox.Text;
             int fileLength;
+            decimal totalFuel = 0;
 
             //Check to see if user entered anything for the output filepath, if not default to the same directory as input with 'Day1Output.txt' 
             //as its name.
@@ -43,20 +44,36 @@ namespace AdventOfCode
             string[] input = System.IO.File.ReadAllLines(inputFilePath);
             fileLength = input.Length;
             
-            //Declare output filepath for the streamwriter
-            using (var output = new StreamWriter(outputFilePath))
-            {
+            ////Declare output filepath for the streamwriter
+            //using (var output = new StreamWriter(outputFilePath))
+            //{
 
-                //for each entry in the input list, divide by 3, round down, and then subtract 2. Finally write that to the output file.
-                for (int i = 0; i < fileLength; i++)
-                {
-                    decimal entry = Convert.ToDecimal(input[i]);
-                    entry = entry / 3;
-                    entry = Math.Floor(entry);
-                    entry = entry - 2;
-                    output.Write(entry + "\r\n");
-                }
+            //    //for each entry in the input list, divide by 3, round down, and then subtract 2. Finally write that to the output file.
+            //    for (int i = 0; i < fileLength; i++)
+            //    {
+            //        decimal entry = Convert.ToDecimal(input[i]);
+            //        entry = entry / 3;
+            //        entry = Math.Floor(entry);
+            //        entry = entry - 2;
+            //        output.Write(entry + "\r\n");
+            //    }
+            //}
+
+            //Sum all of the fuel values
+            for (int i = 0; i < fileLength; i++)
+            {
+                decimal entry = Convert.ToDecimal(input[i]);
+                entry = entry / 3;
+                entry = Math.Floor(entry);
+                entry = entry - 2;
+                totalFuel += entry;
             }
+
+            //Combine the total fuel value into a string message to display
+            string message = string.Format("Total fuel = {0}", totalFuel.ToString());
+
+            //Display message for user
+            MessageBox.Show(message);
         }
     }
 }
